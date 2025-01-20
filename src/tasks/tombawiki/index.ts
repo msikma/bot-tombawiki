@@ -29,7 +29,7 @@ export const taskTombaWiki: BotTask<TombaWikiConfig> = {
     {
       action: TombaWikiFeedTask,
       description: 'reports on edits made to the Tomba Club wiki',
-      interval: scheduleEvery(1, 'minute'),
+      interval: scheduleEvery(5, 'seconds'),
       deferred: false,
       batchLimit: 10,
     }
