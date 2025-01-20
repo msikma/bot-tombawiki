@@ -58,7 +58,7 @@ function getDescription(rcData: RcEditRecord) {
 function getMinorEditPayload(rcData: RcEditRecord, identifier?: string): BaseMessageOptions {
   const embed = new EmbedBuilder()
   embed.setColor(taskTombaWiki.design.color)
-  embed.setDescription(`**Minor edit:** ${getDescription(rcData)}${rcData.comments.raw ? ` \`${rcData.comments.raw.replaceAll('`', ` ̀`)}\`` : ''}`)
+  embed.setDescription(`**[M]** ${getDescription(rcData)}${rcData.comments.raw ? ` \`${rcData.comments.raw.replaceAll('`', ` ̀`)}\`` : ''}`)
   return {content: undefined, embeds: [embed]}
 }
 
