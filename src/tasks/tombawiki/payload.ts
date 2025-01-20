@@ -53,9 +53,22 @@ function getDescription(rcData: RcEditRecord) {
 }
 
 /**
+ * Returns a payload for a minor edit.
+ */
+function getMinorEditPayload(rcData: RcEditRecord, identifier?: string): BaseMessageOptions {
+  const embed = new EmbedBuilder()
+  embed.setColor(taskTombaWiki.design.color)
+  embed.setDescription(`**Minor edit:** ${getDescription(rcData)}${rcData.comments.raw ? ` \`${rcData.comments.raw.replaceAll('`', ` ̀`)}\`` : ''}`)
+  return {content: undefined, embeds: [embed]}
+}
+
+/**
  * Returns a payload for a recent change on the wiki.
  */
 export async function getPayload(rcData: RcEditRecord, identifier?: string): Promise<BaseMessageOptions> {
+  if (MwRecent.isPageEdit(rcData) && rcData.metadata.minor === true) {
+    return getMinorEditPayload(rcData, identifier)
+  }
   const embed = new EmbedBuilder()
   embed.setURL(rcData.page.url)
   embed.setColor(taskTombaWiki.design.color)
