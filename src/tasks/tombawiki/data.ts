@@ -21,6 +21,19 @@ function createGuid(editRecord: RcEditRecord) {
 }
 
 /**
+ * Filters recent changes to only items we consider relevant enough to post.
+ */
+function filterRecentChanges(feedItems: TombaWikiFeedItem[]): TombaWikiFeedItem[] {
+  return feedItems.filter(feedItem => {
+    // Don't include edits that people make to their own userpages.
+    if (feedItem.data.page.namespace === 'User' && feedItem.data.page.name.startsWith(feedItem.data.editor.username)) {
+      return false
+    }
+    return true
+  })
+}
+
+/**
  * Fetches recent changes from the Tomba Club wiki.
  */
 export async function getRecentChanges(taskRecentChanges: TombaWikiConfig['taskRecentChanges']): Promise<TombaWikiFeedItem[]> {
@@ -40,5 +53,5 @@ export async function getRecentChanges(taskRecentChanges: TombaWikiConfig['taskR
       }
     })
   }))
-  return orderBy(results.flat(), 'data.timestamps.editedAt', 'asc')
+  return orderBy(filterRecentChanges(results.flat()), 'data.timestamps.editedAt', 'asc')
 }
