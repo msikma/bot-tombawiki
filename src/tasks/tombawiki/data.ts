@@ -41,7 +41,7 @@ export async function getRecentChanges(taskRecentChanges: TombaWikiConfig['taskR
     wUrl: TOMBA_WIKI_W_URL,
     baseUrl: TOMBA_WIKI_BASE_URL,
   })
-  const results = await promiseSequential(taskRecentChanges.flatMap(async taskRecentChange => {
+  const results = await promiseSequential(taskRecentChanges.flatMap(taskRecentChange => async () => {
     await sleep(5000)
     const res = await mw.getRecentChanges()
     return res.editRecords.map(editRecord => {

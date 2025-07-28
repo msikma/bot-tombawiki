@@ -33,7 +33,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@dada78641/cronbot": "^0.1.2",
+    "@dada78641/cronbot": "^0.2.0",
     "@dada78641/mwrecent": "^0.0.6",
     "discord.js": "^14.16.3"
   }
